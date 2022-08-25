@@ -18,17 +18,11 @@ const Profiles = () => {
 
   const handleNext = () => {
     setPageOptions({...pageOptions,page:pageOptions.page+1})
-    console.log("pag")
   }
 
   const handlePrevious = () => {
     setPageOptions({...pageOptions,page:pageOptions.page-1})
-    console.log("page")
   }
-
-  // const getData = () => {
-
-  // }
 
   const [loading,setLoading] = useState(false)
     useEffect(() => {
@@ -67,7 +61,6 @@ const Profiles = () => {
           userCardData.push(user)
            })
            setProfiles(userCardData);
-          console.log("paginatedUserData",paginatedUserData)
       }
       setLoading(false)
     },[allUserData,pageOptions])
