@@ -10,15 +10,37 @@ import Grid from "@mui/material/Grid";
 
 const ProfileItem = ({profile,chartData}) => {
     const data = [];
-    chartData.sort((a,b) => new Date(a.time).getTime() - new Date(b.time).getTime()).forEach(i => {
+
+    let ans = chartData.reduce((agg,curr) => {
+        let found = agg.find((x) => {
+           return x.date === (curr.time).split(' ')[0]});
+        if(found){
+            found.data.push(curr);
+        }
+        else{
+            agg.push({
+                date : (curr.time).split(' ')[0],
+                data : [curr]
+            });
+        }
+        return agg;
+     },[]);
+
+    ans.forEach(i => {
         let d = {
-            date: i.time,
-            value: i.revenue
+            date: i.date,
+            value: i.data.length
           }
           data.push(d);
     })
-    let startDate = new Date(data[0].date)
-    let endDate = new Date(data[data.length-1].date)
+
+    // Date From All Data For Graph
+    // let startDate = new Date(data[0].date)
+    // let endDate = new Date(data[data.length-1].date)
+
+    //Date for Graph From Given Static Image 
+    let startDate = new Date("4/12/2013")
+    let endDate = new Date("4/30/2013")
 
     const  numberWithCommas = (x)  => {
         x = x.toString();
